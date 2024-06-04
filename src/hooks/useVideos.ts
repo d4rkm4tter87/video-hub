@@ -18,8 +18,8 @@ export interface Video {
   realeaseDate?: number;
 }
 
-const useVideos = (selectedGenre: string | null) => {
-  console.log(selectedGenre);
+const useVideos = (selectedGenre: string | null, sortOrder: string | null) => {
+  console.log(selectedGenre, sortOrder);
   const [videoList, setVideoList] = useState<Video[]>([]);
   const [isLoading, setLoading] = useState(false);
   const videosCollectionRef = collection(db, "movies");
