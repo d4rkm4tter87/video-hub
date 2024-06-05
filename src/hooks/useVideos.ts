@@ -1,12 +1,5 @@
 import { db } from "../services/firebase.ts";
-import {
-  getDocs,
-  collection,
-  addDoc,
-  deleteDoc,
-  updateDoc,
-  doc,
-} from "firebase/firestore";
+import { getDocs, collection, query, orderBy, limit } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 export interface Video {
@@ -18,17 +11,14 @@ export interface Video {
   releaseDate?: number;
 }
 
-const useVideos = (
-  selectedGenre: string | null,
-  sortOrder: string | null,
-  updated: number
-) => {
-  console.log(selectedGenre, sortOrder, updated);
+const useVideos = (updated: number) => {
+  console.log(updated);
   const [videoList, setVideoList] = useState<Video[]>([]);
   const [isLoading, setLoading] = useState(false);
   const videosCollectionRef = collection(db, "movies");
   const getVideoList = async () => {
     try {
+      //const q = query(videosCollectionRef, orderBy("releaseDate"));
       const data = await getDocs(videosCollectionRef);
       const filteredData = data.docs.map((doc) => ({
         ...doc.data(),
@@ -44,9 +34,7 @@ const useVideos = (
   useEffect(() => {
     setLoading(true);
     getVideoList();
-    console.log(videoList);
-    console.log(videoList.length);
-  }, [selectedGenre, sortOrder, updated]);
+  }, [updated]);
   return { videoList, isLoading };
 };
 
