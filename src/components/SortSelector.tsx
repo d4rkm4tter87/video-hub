@@ -7,14 +7,21 @@ interface Props {
 }
 
 const SortSelector = ({ onSelectSortOrder, sortOrder }: Props) => {
-  const sortOrders = [{ value: "Name" }, { value: "Date" }];
+  const sortOrders = [
+    { value: "Date (asc.)" },
+    { value: "Date (desc.)" },
+    { value: "Name (asc.)" },
+    { value: "Name (desc.)" },
+    { value: "Genre (asc.)" },
+    { value: "Genre (desc.)" },
+  ];
   const currentSortOrder = sortOrders.find(
     (order) => order.value === sortOrder
   );
   return (
     <Menu>
       <MenuButton marginLeft={3} as={Button} rightIcon={<BsChevronDown />}>
-        Order by: {currentSortOrder?.value || "Name"}
+        Order by: {currentSortOrder?.value || "Name (asc.)"}
       </MenuButton>
 
       <MenuList>

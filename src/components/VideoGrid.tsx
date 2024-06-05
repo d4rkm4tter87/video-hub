@@ -26,7 +26,7 @@ interface Props {
 const VideoGrid = ({ selectedGenre, sortOrder, setUpdated }: Props) => {
   const [u, setU] = useState<number>(0);
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-  const { videoList, isLoading } = useVideos(u);
+  const { videoList, isLoading } = useVideos(selectedGenre, sortOrder, u);
 
   const [newMovieTitle, setNewMovieTitle] = useState("");
   const [newMovieFile, setNewMovieFile] = useState("");
