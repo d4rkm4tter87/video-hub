@@ -52,11 +52,11 @@ const useVideos = (
   }, [selectedGenre, sortOrder, updated]);
 
   const genreOperator = (selectedGenre: string | null) => {
-    if (selectedGenre === null) return "!=";
+    if (selectedGenre === null || selectedGenre === "All") return "!=";
     else return "==";
   };
   const getGenre = (selectedGenre: string | null) => {
-    if (selectedGenre === null) return "null";
+    if (selectedGenre === null || selectedGenre === "All") return "null";
     else return selectedGenre;
   };
   const getSortType = (sortOrder: string | null) => {
