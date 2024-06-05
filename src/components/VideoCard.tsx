@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Card,
   CardBody,
   CardHeader,
@@ -10,9 +11,10 @@ import { Video } from "../hooks/useVideos";
 
 interface Props {
   video: Video;
+  deleteMovie: (id: string) => void;
 }
 
-const VideoCard = ({ video }: Props) => {
+const VideoCard = ({ video, deleteMovie }: Props) => {
   return (
     <Card borderRadius={10} overflow="hidden">
       <CardHeader height="200px" padding={1}>
@@ -21,8 +23,16 @@ const VideoCard = ({ video }: Props) => {
 
       <CardBody>
         <Box display="flex" alignItems="baseline">
-          <Heading fontSize="2xl">{video.title}</Heading>
+          <Heading fontSize="2xl">
+            {video.title} ({video.releaseDate})
+          </Heading>
         </Box>
+        <Heading fontSize="1xl">
+          Genre: {video.genre}{" "}
+          <Button onClick={() => deleteMovie(video.id)} variant="link">
+            x
+          </Button>
+        </Heading>
       </CardBody>
     </Card>
   );

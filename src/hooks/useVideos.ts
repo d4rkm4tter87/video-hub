@@ -15,11 +15,15 @@ export interface Video {
   file?: string;
   genre?: string;
   image?: string;
-  realeaseDate?: number;
+  releaseDate?: number;
 }
 
-const useVideos = (selectedGenre: string | null, sortOrder: string | null) => {
-  console.log(selectedGenre, sortOrder);
+const useVideos = (
+  selectedGenre: string | null,
+  sortOrder: string | null,
+  updated: number
+) => {
+  console.log(selectedGenre, sortOrder, updated);
   const [videoList, setVideoList] = useState<Video[]>([]);
   const [isLoading, setLoading] = useState(false);
   const videosCollectionRef = collection(db, "movies");
@@ -42,7 +46,7 @@ const useVideos = (selectedGenre: string | null, sortOrder: string | null) => {
     getVideoList();
     console.log(videoList);
     console.log(videoList.length);
-  }, []);
+  }, [selectedGenre, sortOrder, updated]);
   return { videoList, isLoading };
 };
 
