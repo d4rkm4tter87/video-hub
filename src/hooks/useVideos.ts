@@ -1,12 +1,5 @@
 import { db } from "../services/firebase.ts";
-import {
-  getDocs,
-  collection,
-  query,
-  orderBy,
-  limit,
-  where,
-} from "firebase/firestore";
+import { getDocs, collection, query, orderBy, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 export interface Video {

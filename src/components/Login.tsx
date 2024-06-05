@@ -1,19 +1,11 @@
-import {
-  Button,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  Image,
-} from "@chakra-ui/react";
-import { useRef, useState, useEffect } from "react";
-import { BsSearch, BsPersonPlusFill } from "react-icons/bs";
+import { Button, Input, Image } from "@chakra-ui/react";
+import { useState, useEffect } from "react";
 import { auth, googleProvider } from "../services/firebase";
 import gSignIn from "../assets/signInWithGoogle.png";
 import {
   createUserWithEmailAndPassword,
   signInWithPopup,
   signOut,
-  getAuth,
   onAuthStateChanged,
 } from "firebase/auth";
 

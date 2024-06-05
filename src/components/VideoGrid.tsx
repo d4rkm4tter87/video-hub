@@ -1,29 +1,20 @@
 import { SimpleGrid } from "@chakra-ui/react";
-import useVideos, { Video } from "../hooks/useVideos";
+import useVideos from "../hooks/useVideos";
 import VideoCard from "./VideoCard";
 import VideoCardSkeleton from "./VideoCardSkeleton";
-import VideoForm from "./VideoForm";
 import genres from "../data/genres";
 import dates from "../data/dates";
 import { db } from "../services/firebase.ts";
 import { HStack, Button, Input, Select } from "@chakra-ui/react";
-import {
-  getDocs,
-  collection,
-  addDoc,
-  deleteDoc,
-  updateDoc,
-  doc,
-} from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { collection, addDoc, deleteDoc, doc } from "firebase/firestore";
+import { useState } from "react";
 
 interface Props {
   selectedGenre: string | null;
   sortOrder: string | null;
-  setUpdated: (u: number) => void;
 }
 
-const VideoGrid = ({ selectedGenre, sortOrder, setUpdated }: Props) => {
+const VideoGrid = ({ selectedGenre, sortOrder }: Props) => {
   const [u, setU] = useState<number>(0);
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   const { videoList, isLoading } = useVideos(selectedGenre, sortOrder, u);
@@ -47,23 +38,15 @@ const VideoGrid = ({ selectedGenre, sortOrder, setUpdated }: Props) => {
         genre: newGenre,
       });
       setU(u + 1);
-      setUpdated(u);
     } catch (err) {
       console.log(err);
     }
-  };
-
-  const updateMovieTitle = async (id: string, title: string) => {
-    console.log(id, title);
-    const movieDoc = doc(db, "movies", id);
-    await updateDoc(movieDoc, { title: title });
   };
 
   const deleteMovie = async (id: string) => {
     const movieDoc = doc(db, "movies", id);
     await deleteDoc(movieDoc);
     setU(u + 1);
-    setUpdated(u);
   };
 
   return (
