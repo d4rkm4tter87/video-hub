@@ -8,6 +8,7 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { Video } from "../hooks/useVideos";
+import { Link } from "react-router-dom";
 
 interface Props {
   video: Video;
@@ -16,16 +17,25 @@ interface Props {
 
 const VideoCard = ({ video, deleteMovie }: Props) => {
   return (
-    <Card borderRadius={10} overflow="hidden">
+    <Card
+      borderRadius={10}
+      overflow="hidden"
+      _hover={{
+        transform: "scale(1.03)",
+        transition: "transform .15s ease-in",
+      }}
+    >
       <CardHeader height="200px" padding={1}>
         <Image src={video.image} />
       </CardHeader>
 
       <CardBody>
         <Box display="flex" alignItems="baseline">
-          <Heading fontSize="2xl">
-            {video.title} ({video.releaseDate})
-          </Heading>
+          <Link to={"/videos/" + video.id}>
+            <Heading fontSize="2xl">
+              {video.title} ({video.releaseDate})
+            </Heading>
+          </Link>
         </Box>
         <Heading fontSize="1xl">
           Genre: {video.genre}{" "}
