@@ -1,28 +1,24 @@
 import { Grid, GridItem, Show } from "@chakra-ui/react";
-import Nav from "./components/Nav.tsx";
-import VideoGrid from "./components/VideoGrid.tsx";
-import GenreList from "./components/GenreList.tsx";
-import SortSelector from "./components/SortSelector";
-import VideoHeading from "./components/VideoHeading";
+import VideoGrid from "../components/VideoGrid.tsx";
+import GenreList from "../components/GenreList.tsx";
+import SortSelector from "../components/SortSelector";
+import VideoHeading from "../components/VideoHeading";
 import { useState } from "react";
 
-function App() {
+const HomePage = () => {
   const [selectedGenre, setSelectedGenre] = useState<string | null>(null);
   const [sorted, setSorted] = useState<string | null>(null);
   return (
     <Grid
       templateAreas={{
-        base: `"nav" "main"`,
-        lg: `"nav nav" "aside main"`, //1024 wide
+        base: `"main"`,
+        lg: `"aside main"`, //1024 wide
       }}
       templateColumns={{
         base: "1fr",
         lg: "200px 1fr",
       }}
     >
-      <GridItem area="nav">
-        <Nav />
-      </GridItem>
       <Show above="lg">
         <GridItem area="aside" paddingX={5}>
           <GenreList
@@ -42,6 +38,6 @@ function App() {
       </GridItem>
     </Grid>
   );
-}
+};
 
-export default App;
+export default HomePage;
