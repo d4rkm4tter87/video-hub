@@ -8,6 +8,7 @@ import { db } from "../services/firebase.ts";
 import { HStack, Button, Input, Select } from "@chakra-ui/react";
 import { collection, addDoc, deleteDoc, doc } from "firebase/firestore";
 import { useState } from "react";
+import { auth } from "../services/firebase";
 
 interface Props {
   selectedGenre: string | null;
@@ -51,48 +52,51 @@ const VideoGrid = ({ selectedGenre, sortOrder }: Props) => {
 
   return (
     <>
-      <HStack marginLeft={3}>
-        <Input
-          width="small"
-          placeholder="Title"
-          onChange={(e) => setNewMovieTitle(e.target.value)}
-        />
-        <Input
-          width="small"
-          placeholder="Video"
-          onChange={(e) => setNewMovieFile(e.target.value)}
-        />
-        <Input
-          width="small"
-          placeholder="Image"
-          onChange={(e) => setNewMovieImage(e.target.value)}
-        />
-        <Select
-          width="small"
-          onChange={(e) => setNewReleaseDate(Number(e.target.value))}
-          placeholder="Release Date"
-        >
-          {dates.map((date) => (
-            <option key={date.year} value={date.year}>
-              {date.year}
-            </option>
-          ))}
-        </Select>
-        <Select
-          width="small"
-          onChange={(e) => setNewGenre(e.target.value)}
-          placeholder="Genre"
-        >
-          {genres.map((genre) => (
-            <option key={genre.name} value={genre.name}>
-              {genre.name}
-            </option>
-          ))}
-        </Select>
-        <Button marginBottom="5px" onClick={onSubmitMovie}>
-          Add Movie
-        </Button>
-      </HStack>
+      {auth?.currentUser?.email === "joschka.zimdars@googlemail.com" && (
+        <HStack marginLeft={3}>
+          <Input
+            width="small"
+            placeholder="Title"
+            onChange={(e) => setNewMovieTitle(e.target.value)}
+          />
+          <Input
+            width="small"
+            placeholder="Video"
+            onChange={(e) => setNewMovieFile(e.target.value)}
+          />
+          <Input
+            width="small"
+            placeholder="Image"
+            onChange={(e) => setNewMovieImage(e.target.value)}
+          />
+
+          <Select
+            width="small"
+            onChange={(e) => setNewReleaseDate(Number(e.target.value))}
+            placeholder="Release Date"
+          >
+            {dates.map((date) => (
+              <option key={date.year} value={date.year}>
+                {date.year}
+              </option>
+            ))}
+          </Select>
+          <Select
+            width="small"
+            onChange={(e) => setNewGenre(e.target.value)}
+            placeholder="Genre"
+          >
+            {genres.map((genre) => (
+              <option key={genre.name} value={genre.name}>
+                {genre.name}
+              </option>
+            ))}
+          </Select>
+          <Button marginBottom="5px" onClick={onSubmitMovie}>
+            Add Movie
+          </Button>
+        </HStack>
+      )}
       <SimpleGrid
         columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
         padding="10px"

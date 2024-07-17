@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { Video } from "../hooks/useVideos";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 interface Props {
   video: Video;
@@ -16,6 +17,16 @@ interface Props {
 }
 
 const VideoCard = ({ video, deleteMovie }: Props) => {
+  const [showImg, setShowImg] = useState(true);
+  const [showVideo, setShowVideo] = useState(false);
+  const hoverImgIn = () => {
+    setShowImg(false);
+    setShowVideo(true);
+  };
+  const hoverImgOut = () => {
+    setShowImg(true);
+    setShowVideo(false);
+  };
   return (
     <Card
       borderRadius={10}
@@ -25,8 +36,18 @@ const VideoCard = ({ video, deleteMovie }: Props) => {
         transition: "transform .15s ease-in",
       }}
     >
-      <CardHeader height="200px" padding={1}>
-        <Image src={video.image} />
+      <CardHeader
+        height="200px"
+        padding={1}
+        onMouseOver={hoverImgIn}
+        onMouseLeave={hoverImgOut}
+      >
+        <Link to={"/videos/" + video.id}>
+          {showImg && <Image src={video.image || ""} />}
+          {showVideo && (
+            <video src={video.file || ""} autoPlay={true} muted={true} />
+          )}
+        </Link>
       </CardHeader>
 
       <CardBody>
