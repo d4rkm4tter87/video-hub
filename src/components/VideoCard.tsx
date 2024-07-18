@@ -60,9 +60,9 @@ const VideoCard = ({ video, deleteMovie }: Props) => {
         </Box>
         <Heading fontSize="1xl">
           Genre: {video.genre}{" "}
-          <Button onClick={() => deleteMovie(video.id)} variant="link">
+          {/* <Button onClick={() => deleteMovie(video.id)} variant="link">
             x
-          </Button>
+          </Button> */}
         </Heading>
       </CardBody>
     </Card>
