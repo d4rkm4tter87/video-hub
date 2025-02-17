@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Card,
   CardBody,
   CardHeader,
@@ -13,10 +12,9 @@ import { useState } from "react";
 
 interface Props {
   video: Video;
-  deleteMovie: (id: string) => void;
 }
 
-const VideoCard = ({ video, deleteMovie }: Props) => {
+const VideoCard = ({ video }: Props) => {
   const [showImg, setShowImg] = useState(true);
   const [showVideo, setShowVideo] = useState(false);
   const hoverImgIn = () => {
